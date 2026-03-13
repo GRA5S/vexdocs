@@ -1,0 +1,14 @@
+# 3300Docs
+
+A simple documentation site built with SvelteKit and mdsvex.
+
+## Getting Started
+
+- Check out the [Installation](/docs/installation) guide
+- Read the [Getting Started](/docs/getting-started) tutorial
+- Explore more [documentation](/docs)
+
+---
+
+Built with [SvelteKit](https://svelte.dev/docs/kit) and [mdsvex](https://mdsvex.pngwn.io/)
+

@@ -1,0 +1,58 @@
+# Installation
+
+This site is already set up with everything you need. Here's what's included:
+
+## Prerequisites
+
+- Node.js 18 or higher
+- npm or yarn
+
+## Setup
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start the development server:
+```bash
+npm run dev
+```
+
+3. Open your browser to `http://localhost:5173`
+
+## Building for Production
+
+To build the site for production:
+
+```bash
+npm run build
+```
+
+Then preview the production build:
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+src/
+├── routes/
+│   ├── +page.md          (Home page)
+│   ├── docs/
+│   │   ├── +layout.svelte (Docs layout)
+│   │   ├── getting-started.md
+│   │   ├── installation.md
+│   │   └── examples.md
+│   ├── +layout.svelte
+│   └── layout.css
+└── lib/
+```
+
+## Technologies Used
+
+- **SvelteKit**: Full-stack web framework
+- **mdsvex**: Markdown processing for Svelte
+- **Tailwind CSS**: Utility-first CSS framework

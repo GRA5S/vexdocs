@@ -1,0 +1,29 @@
+# Getting Started
+
+Welcome to the getting started guide for VexDocs.
+
+## What is VexDocs?
+
+VexDocs is a lightweight documentation site built with SvelteKit and mdsvex, allowing you to write documentation in Markdown and get a beautiful docs site with minimal setup.
+
+## Key Features
+
+- **Markdown-based**: Write all your docs in simple Markdown
+- **Component support**: Use Svelte components directly in your Markdown files
+- **Fast**: Built on SvelteKit with optimal performance
+- **Responsive**: Works great on mobile and desktop
+- **Easy navigation**: Built-in sidebar navigation
+
+## Next Steps
+
+1. Check out the [Installation](/docs/installation) guide
+2. Explore some [Examples](/docs/examples)
+3. Start writing your own documentation!
+
+## Writing Docs
+
+To create a new doc page:
+
+1. Create a `.md` file in `src/routes/docs/`
+2. Add navigation links to `src/routes/docs/+layout.svelte`
+3. Your page will automatically be available at `/docs/filename`

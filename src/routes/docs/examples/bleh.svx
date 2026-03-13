@@ -1,0 +1,59 @@
+# Examples
+
+Here are some examples of what you can do with mdsvex docs.
+
+## Code Blocks
+
+Syntax highlighting works automatically:
+
+```javascript
+function hello(name) {
+	return `Hello, ${name}!`;
+}
+
+console.log(hello('World'));
+```
+
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+```
+
+## Lists and Tables
+
+### Unordered List
+- Item one
+- Item two
+  - Nested item
+  - Another nested item
+- Item three
+
+### Ordered List
+1. First step
+2. Second step
+3. Third step
+
+### Tables
+
+| Feature | Support | Notes |
+|---------|---------|-------|
+| Markdown | ✓ | Full CommonMark support |
+| Components | ✓ | Use Svelte components |
+| Code highlighting | ✓ | Automatic |
+| Custom styling | ✓ | Via CSS |
+
+## Blockquotes
+
+> This is a blockquote. It can contain **bold text**, *italic text*, and [links](/).
+>
+> Multiple paragraphs are supported.
+
+## Tips
+
+**Pro tip**: You can customize the styling of your docs by editing `src/routes/layout.css` and adding CSS variables for colors and spacing.
+
+---
+
+**Next**: Check out how to add more documentation pages to your site!
