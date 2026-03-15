@@ -29,44 +29,52 @@
 
 {#if folder}
 	<li>
-		<button class="folder-btn" on:click={() => (expanded[folder.label] = !expanded[folder.label])}>
-			<span class="arrow" class:open={expanded[folder.label]}>▶</span>
-			{folder.label}
-		</button>
-		{#if expanded[folder.label]}
-			<ul class="nested">
-				{#each folder.pages as page}
-					<li>
-						<a href={page.path} class:active={pathname === page.path}>{page.label}</a>
-					</li>
-				{/each}
-				{#each folder.folders as subfolder}
-					<svelte:self {subfolder} {pathname} />
-				{/each}
-			</ul>
+		{#if folder.folders.length > 0}
+			<button class="folder-btn" on:click={() => (expanded[folder.label] = !expanded[folder.label])}>
+				<a href={folder.path} class:active={pathname === folder.path}>{folder.label}</a>
+				<span class="arrow" class:open={expanded[folder.label]}>▶</span>
+			</button>
+			{#if expanded[folder.label]}
+				<ul class="nested">
+					{#each folder.pages as page}
+						<li>
+							<a href={page.path} class:active={pathname === page.path}>{page.label}</a>
+						</li>
+					{/each}
+					{#each folder.folders as subfolder}
+						<svelte:self folder={subfolder} {pathname} />
+					{/each}
+				</ul>
+			{/if}
+		{:else}
+			<a href={folder.path} class:active={pathname === folder.path}>{folder.label}</a>
 		{/if}
 	</li>
 {:else if data}
-	<div class="container">
+	<div class="main">
 		<aside class="sidebar">
 			<ul>
 				{#each data.docs as topFolder}
 					<li>
-						<button class="folder-btn" on:click={() => (expanded[topFolder.label] = !expanded[topFolder.label])}>
-							<span class="arrow" class:open={expanded[topFolder.label]}>▶</span>
-							{topFolder.label}
-						</button>
-						{#if expanded[topFolder.label]}
-							<ul class="nested">
-								{#each topFolder.pages as page}
-									<li>
-										<a href={page.path} class:active={pathname === page.path}>{page.label}</a>
-									</li>
-								{/each}
-								{#each topFolder.folders as subfolder}
-									<svelte:self folder={subfolder} {pathname} />
-								{/each}
-							</ul>
+						{#if topFolder.folders.length > 0}
+							<button class="folder-btn" on:click={() => (expanded[topFolder.label] = !expanded[topFolder.label])}>
+								<a href={topFolder.path} class:active={pathname === topFolder.path}>{topFolder.label}</a>
+								<span class="arrow" class:open={expanded[topFolder.label]}>▶</span>
+							</button>
+							{#if expanded[topFolder.label]}
+								<ul class="nested">
+									{#each topFolder.pages as page}
+										<li>
+											<a href={page.path} class:active={pathname === page.path}>{page.label}</a>
+										</li>
+									{/each}
+									{#each topFolder.folders as subfolder}
+										<svelte:self folder={subfolder} {pathname} />
+									{/each}
+								</ul>
+							{/if}
+						{:else}
+							<a href={topFolder.path} class:active={pathname === topFolder.path}>{topFolder.label}</a>
 						{/if}
 					</li>
 				{/each}
@@ -80,22 +88,26 @@
 {/if}
 
 <style>
-	.container {
+	.main {
 		display: flex;
 		gap: 2rem;
-		/* max-width: 1200px; */
+		/* max-width: 80vw; */
 		margin: 0 auto;
+		width:100%;
+		/* margin-top:-1.5em; */
 		padding: 2rem;
+		padding-top: 0;
 	}
 
 	.sidebar {
-		flex: 0 0 200px;
+		flex: 0 0 15vw;
 	}
 
 	.sidebar ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		
 	}
 
 	.sidebar li {
@@ -103,25 +115,35 @@
 	}
 
 	.folder-btn {
-		all: unset;
+		/* all: unset; */
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		justify-content: space-between;
 		width: 100%;
-		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		/* padding: 0.5rem 1rem; */
 		cursor: pointer;
-		font-weight: 500;
-		transition: background-color 0.2s;
+		/* font-weight: 500; */
+		/* font-size: 18px; */
+    	/* line-height: 1.555556; */
+		/* transition: background-color 0.2s; */
 	}
 
 	.folder-btn:hover {
 		background-color: var(--color-bg-1);
 	}
 
+	.folder-btn a {
+		/* color: inherit; */
+		text-decoration: none;
+		text-align: left;
+	}
+
 	.arrow {
 		display: inline-block;
 		transition: transform 0.2s;
-		font-size: 0.75rem;
+		font-size: 0.55rem;
+		margin-left: -40px;
 	}
 
 	.arrow.open {
@@ -130,26 +152,34 @@
 
 	.nested {
 		list-style: none;
-		padding-left: 1.5rem;
+		padding-left: 3rem;
 		margin: 0;
+	}
+
+	.nested li {
+		margin-left: 2rem;
 	}
 
 	.sidebar a {
 		display: block;
 		padding: 0.5rem 1rem;
-		border-left: 3px solid transparent;
+		/* border-left: 3px solid transparent; */
 		transition: all 0.2s;
+		font-weight: 500;
+		font-size: 18px;
+    	line-height: 1.555556;
+		border-radius: 5px;
+		width: 100%;
 	}
 
 	.sidebar a:hover {
-		border-left-color: var(--color-primary);
+		/* border-left-color: var(--color-primary); */
 		background-color: var(--color-bg-1);
 	}
 
 	.sidebar a.active {
-		border-left-color: var(--color-primary);
+		/* border-left-color: var(--color-primary); */
 		background-color: var(--color-bg-1);
-		font-weight: 500;
 	}
 
 	main {
@@ -158,7 +188,7 @@
 	}
 
 	@media (max-width: 768px) {
-		.container {
+		.main {
 			flex-direction: column;
 			gap: 1rem;
 		}

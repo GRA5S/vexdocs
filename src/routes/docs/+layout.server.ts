@@ -12,6 +12,7 @@ interface Page {
 
 interface Folder {
 	label: string;
+	path: string;
 	pages: Page[];
 	folders: Folder[];
 }
@@ -35,9 +36,16 @@ function scanDir(dirPath: string, basePath: string): { pages: Page[]; folders: F
 		} else if (entry.isDirectory()) {
 			const nested = scanDir(fullPath, `${basePath}/${entry.name}`);
 			if (nested.pages.length || nested.folders.length) {
+				const folderPath = `${basePath}/${entry.name}`;
+				const filteredPages = nested.pages.filter(p => p.path !== folderPath);
+				// Keep the root page if it's the only content
+				const pagesToShow = filteredPages.length === 0 && nested.folders.length === 0 
+					? nested.pages 
+					: filteredPages;
 				folders.push({
 					label: getLabel(entry.name),
-					pages: nested.pages,
+					path: folderPath,
+					pages: pagesToShow,
 					folders: nested.folders
 				});
 			}
@@ -59,10 +67,17 @@ export async function load() {
 			.filter(entry => entry.isDirectory() && !entry.name.startsWith('.'))
 			.map(dir => {
 				const nested = scanDir(join(docsDir, dir.name), `/docs/${dir.name}`);
+				const folderPath = `/docs/${dir.name}`;
+				const filteredPages = nested.pages.filter(p => p.path !== folderPath);
+				// Keep the root page if it's the only content
+				const pagesToShow = filteredPages.length === 0 && nested.folders.length === 0 
+					? nested.pages 
+					: filteredPages;
 				
 				return {
 					label: getLabel(dir.name),
-					pages: nested.pages,
+					path: folderPath,
+					pages: pagesToShow,
 					folders: nested.folders
 				};
 			})
